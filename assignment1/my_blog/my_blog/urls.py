@@ -16,10 +16,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blog import views
+from blog.views import (
+    first,
+    post_list,
+    post_one,
+    create_post,
+    PostEditView,
+    PostDeleteView,
+    register_view,
+    login_view,
+    logout_view
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('first', views.first, name = "first"),
-    path('', views.post_list, name='post_list'),
-    path('post/<int:id>/', views.post_one, name='post_one'), 
+    path('', first, name='first'),
+    path('posts/', post_list, name='post_list'),
+    path('posts/<int:id>/', post_one, name='post_one'),
+    path('posts/create/', create_post, name='create_post'),
+    path('posts/<int:pk>/edit/', PostEditView.as_view(), name='post-edit'),
+    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('register/', register_view, name='register'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
 ]
+

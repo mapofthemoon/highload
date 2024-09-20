@@ -8,6 +8,23 @@
     <p><strong>Author:</strong> {{ post.author }}</p>
     <p><strong>Created At:</strong> {{ post.created_at }}</p>
     <p>{{ post.content }}</p>
+    
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li><strong>{{ comment.author.username }}:</strong> {{ comment.text }} ({{ comment.created_at }})</li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Comment</button>
+    </form>
+
     <a href="{% url 'post_list' %}">Back to list</a>
 </body>
 </html>
